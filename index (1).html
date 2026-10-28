@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f4c81">
+<title>Jam Kerja Mesin – Workshop Mold</title>
+<style>
+:root{--bg:#eef2f6;--card:#fff;--tx:#18222d;--mut:#667587;--pri:#0f6bd6;--pri2:#0b4f9e;--ok:#17a05d;--okbg:#e5f6ed;--bad:#d64545;--bd:#d9e1e9;--soft:#f5f8fb;--sh:0 2px 10px rgba(20,40,70,.08)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e141b;--card:#18212b;--tx:#e9eff5;--mut:#92a1b1;--pri:#4b95f5;--pri2:#2f78d8;--ok:#3cc27f;--okbg:#14301f;--bad:#f06a6a;--bd:#2a3644;--soft:#111a23;--sh:none}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);font-size:16px}
+.screen[hidden]{display:none}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 110px}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;border-radius:14px;font-weight:700;font-size:1.02rem;background:var(--pri);color:#fff;box-shadow:0 4px 14px rgba(15,107,214,.28)}
+.btn:active{background:var(--pri2)}
+.btn.ghost{background:var(--card);color:var(--tx);border:1.5px solid var(--bd);box-shadow:none}
+.btn:disabled{opacity:.6}
+.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-bottom:14px}
+.lbl{display:block;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
+input[type=date],input[type=text]{width:100%;min-height:48px;padding:0 14px;font:inherit;border:1.5px solid var(--bd);border-radius:12px;background:var(--soft);color:var(--tx)}
+input:focus{outline:2px solid var(--pri);outline-offset:1px;border-color:transparent}
+/* home */
+.hero{background:linear-gradient(135deg,#0f4c81,#0f6bd6);color:#fff;border-radius:22px;padding:26px 20px;margin-bottom:16px}
+.hero .ic{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;margin-bottom:14px}
+.hero h1{margin:0 0 4px;font-size:1.55rem}.hero p{margin:0;opacity:.85}
+.hero .tgl{margin-top:14px;font-size:.88rem;background:rgba(255,255,255,.16);display:inline-block;padding:6px 12px;border-radius:999px}
+.hero+.btn{background:var(--card);color:var(--pri);box-shadow:var(--sh)}
+.info{display:grid;gap:8px;margin-top:16px}
+.info div{display:flex;justify-content:space-between;font-size:.92rem;padding:10px 12px;background:var(--soft);border-radius:10px}
+.info b{color:var(--pri)}
+.rec{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd);font-size:.93rem}
+.rec:last-child{border:0}.rec small{color:var(--mut);display:block}.rec .n{font-weight:700;color:var(--ok);white-space:nowrap}
+.empty{color:var(--mut);font-size:.92rem;margin:0}
+/* form */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 16px;display:flex;align-items:center;gap:10px;max-width:560px;margin:0 auto}
+.back{min-height:42px;padding:0 14px;border-radius:12px;background:var(--card);font-weight:600;box-shadow:var(--sh)}
+.top h2{margin:0;font-size:1.1rem}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chip{min-height:48px;border-radius:12px;background:var(--soft);border:1.5px solid var(--bd);font-weight:600;font-size:.93rem}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--card);padding:6px;border-radius:16px;box-shadow:var(--sh);margin-bottom:14px}
+.tab{position:relative;padding:9px 4px;border-radius:11px;background:transparent;text-align:center;line-height:1.25}
+.tab b{display:block;font-size:.95rem}.tab small{font-size:.72rem;color:var(--mut)}
+.tab.on{background:var(--pri);color:#fff}.tab.on small{color:#dbe9fb}
+.tab i{position:absolute;top:-5px;right:-3px;min-width:21px;height:21px;border-radius:99px;background:var(--ok);color:#fff;font-size:.72rem;font-style:normal;display:none;place-items:center;padding:0 5px;font-weight:700}
+.tab i.v{display:grid}
+.panel[hidden]{display:none}
+.quick{display:flex;gap:8px;margin:12px 0 4px}
+.quick button{flex:1;min-height:42px;border-radius:10px;background:var(--soft);border:1.5px solid var(--bd);font-size:.88rem;font-weight:600}
+.hr{border:1.5px solid var(--bd);border-radius:14px;padding:10px 12px;margin-top:10px;background:var(--card)}
+.hr.on{border-color:var(--ok);background:var(--okbg)}
+.hr label{display:flex;align-items:center;gap:12px;cursor:pointer;min-height:36px}
+.hr input[type=checkbox]{position:absolute;opacity:0;pointer-events:none}
+.sw{width:46px;height:26px;border-radius:99px;background:var(--bd);position:relative;flex:none;transition:.15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.15s}
+.hr input:checked~.sw{background:var(--ok)}.hr input:checked~.sw::after{left:23px}
+.hr input:focus-visible~.sw{outline:2px solid var(--pri);outline-offset:2px}
+.hr .jm{font-weight:700;flex:1}.hr .st{font-size:.82rem;font-weight:700;color:var(--mut)}.hr.on .st{color:var(--ok)}
+.hr .ket{margin-top:8px;min-height:42px;font-size:.92rem}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);box-shadow:0 -4px 18px rgba(0,0,0,.1);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));z-index:6}
+.bar>div{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.bar .tot{line-height:1.2}.bar .tot b{font-size:1.4rem;color:var(--pri)}.bar .tot span{display:block;font-size:.76rem;color:var(--mut)}
+.bar .btn{flex:1}
+/* done */
+.done{text-align:center;padding-top:48px}
+.ck{width:96px;height:96px;border-radius:50%;background:var(--ok);margin:0 auto 20px;display:grid;place-items:center;animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.done h2{margin:0 0 6px;font-size:1.5rem}.done p{margin:0;color:var(--mut)}
+.sum{text-align:left;margin:22px 0}
+.sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.sum div:last-child{border:0}.sum span{color:var(--mut)}.sum b{text-align:right}
+.done .btn+.btn{margin-top:10px}
+#toast{position:fixed;left:16px;right:16px;bottom:96px;max-width:528px;margin:0 auto;background:#222c38;color:#fff;padding:13px 16px;border-radius:12px;font-size:.93rem;z-index:20;opacity:0;pointer-events:none;transform:translateY(10px);transition:.2s}
+#toast.s{opacity:1;transform:none}#toast.e{background:var(--bad)}
+.spin{width:18px;height:18px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<section id="home" class="screen"><div class="wrap">
+  <div class="hero">
+    <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></div>
+    <h1>Jam Kerja Mesin</h1><p>Workshop Mold</p>
+    <span class="tgl" id="hariIni"></span>
+  </div>
+  <button class="btn" id="mulai">＋ &nbsp;Input Jam Mesin</button>
+  <div class="card" style="margin-top:16px">
+    <span class="lbl">Terakhir disimpan</span><div id="recent"></div>
+  </div>
+  <div class="card"><span class="lbl">Pembagian shift</span>
+    <div class="info" style="margin-top:0"><div>Shift 1 <b>00.00 – 08.00</b></div><div>Shift 2 <b>08.00 – 16.00</b></div><div>Shift 3 <b>16.00 – 00.00</b></div></div>
+  </div>
+</div></section>
+
+<section id="form" class="screen" hidden>
+  <div class="top"><button class="back" id="kembali">← Beranda</button><h2>Input Jam Mesin</h2></div>
+  <div class="wrap" style="padding-top:6px">
+    <div class="card">
+      <label class="lbl" for="tgl">Tanggal</label><input type="date" id="tgl">
+      <span class="lbl" style="margin-top:16px">Pilih mesin</span><div class="chips" id="chips"></div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div id="panels"></div>
+  </div>
+  <div class="bar"><div>
+    <div class="tot"><b id="tot">0</b> jam<span>semua shift</span></div>
+    <button class="btn" id="simpan">Simpan</button>
+  </div></div>
+</section>
+
+<section id="done" class="screen" hidden><div class="wrap done">
+  <div class="ck"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h2>Berhasil disimpan</h2><p>Data sudah masuk ke spreadsheet.</p>
+  <div class="card sum" id="sum"></div>
+  <button class="btn" id="home2">Kembali ke Beranda</button>
+  <button class="btn ghost" id="lagi">Input Mesin Lain</button>
+</div></section>
+
+<div id="toast"></div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvm3CNtTlMX1d4T8lki1A3A8I5CsShwEgjOMOrvPYvNuGPf-fSlAo3K0R4X6P6l8tc/exec";
+const MESIN = ["CNC 1","CNC 2","CNC 3","Milling 1","Milling 2","EDM 1","EDM 3","EDM 4","Mesin Bubut"];
+const SHIFT = [{n:1,r:"00.00–08.00",m:0},{n:2,r:"08.00–16.00",m:8},{n:3,r:"16.00–00.00",m:16}];
+const $ = id => document.getElementById(id);
+const pad = n => String(n % 24).padStart(2,"0");
+let mesin = null, tab = 0, busy = false;
+
+const hari = d => d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const fmtTgl = s => hari(new Date(s+"T00:00:00"));
+
+function show(id){ ["home","form","done"].forEach(x => $(x).hidden = x !== id); window.scrollTo(0,0); }
+let tt;
+function toast(msg, err){ const t=$("toast"); t.textContent=msg; t.className=(err?"e ":"")+"s"; clearTimeout(tt); tt=setTimeout(()=>t.className="",3200); }
+
+/* riwayat terakhir (disimpan di browser ini) */
+const getRec = () => { try { return JSON.parse(localStorage.getItem("rec")||"[]"); } catch(e){ return []; } };
+const addRec = r => { try { localStorage.setItem("rec", JSON.stringify([r,...getRec()].slice(0,5))); } catch(e){} };
+function renderHome(){
+  $("hariIni").textContent = hari(new Date());
+  const r = getRec();
+  $("recent").innerHTML = r.length ? r.map(x=>`<div class="rec"><div><b>${x.mesin}</b><small>${fmtTgl(x.tgl)}</small></div><span class="n">${x.jam} jam</span></div>`).join("")
+    : '<p class="empty">Belum ada data yang disimpan di perangkat ini.</p>';
+}
+
+/* bangun form */
+$("chips").innerHTML = MESIN.map(m=>`<button type="button" class="chip">${m}</button>`).join("");
+$("chips").onclick = e => { const b=e.target.closest(".chip"); if(!b) return;
+  mesin=b.textContent; [...$("chips").children].forEach(c=>c.classList.toggle("on",c===b)); };
+
+$("tabs").innerHTML = SHIFT.map((s,i)=>`<button type="button" class="tab" data-i="${i}"><b>Shift ${s.n}</b><small>${s.r}</small><i></i></button>`).join("");
+$("panels").innerHTML = SHIFT.map(s=>{
+  let h=""; for(let j=s.m;j<s.m+8;j++) h+=`<div class="hr"><label><input type="checkbox" class="cb"><span class="sw"></span><span class="jm">${pad(j)}.00 – ${pad(j+1)}.00</span><span class="st">Off</span></label>
+    <input type="text" class="ket" placeholder="Catatan / alasan jika off" autocomplete="off"></div>`;
+  return `<div class="panel card" id="p${s.n}" hidden><label class="lbl" for="mp${s.n}">Manpower Shift ${s.n}</label>
+    <input type="text" id="mp${s.n}" placeholder="Nama operator" autocomplete="off">
+    <div class="quick"><button type="button" data-a="1">Semua jalan</button><button type="button" data-a="0">Kosongkan</button></div>${h}</div>`;
+}).join("");
+
+const rows = () => [...document.querySelectorAll(".hr")];
+function update(){
+  let all=0;
+  SHIFT.forEach((s,i)=>{
+    const n=[...$("p"+s.n).querySelectorAll(".cb")].filter(c=>c.checked).length; all+=n;
+    const b=$("tabs").children[i].querySelector("i"); b.textContent=n; b.classList.toggle("v",n>0);
+  });
+  rows().forEach(r=>{ const on=r.querySelector(".cb").checked; r.classList.toggle("on",on); r.querySelector(".st").textContent=on?"Jalan":"Off"; });
+  $("tot").textContent=all;
+}
+function setTab(i){ tab=i; [...$("tabs").children].forEach((t,k)=>t.classList.toggle("on",k===i)); SHIFT.forEach((s,k)=>$("p"+s.n).hidden=k!==i); }
+$("tabs").onclick = e => { const t=e.target.closest(".tab"); if(t) setTab(+t.dataset.i); };
+$("panels").addEventListener("change", update);
+$("panels").addEventListener("click", e => { const b=e.target.closest(".quick button"); if(!b) return;
+  b.closest(".panel").querySelectorAll(".cb").forEach(c=>c.checked=b.dataset.a==="1"); update(); });
+
+function resetForm(keepNames){
+  mesin=null; [...$("chips").children].forEach(c=>c.classList.remove("on"));
+  rows().forEach(r=>{ r.querySelector(".cb").checked=false; r.querySelector(".ket").value=""; });
+  if(!keepNames) SHIFT.forEach(s=>$("mp"+s.n).value="");
+  setTab(0); update();
+}
+
+$("mulai").onclick = () => { $("tgl").value = iso(new Date()); resetForm(true); show("form"); };
+$("kembali").onclick = () => { if (!busy) { renderHome(); show("home"); } };
+$("home2").onclick = () => { resetForm(true); renderHome(); show("home"); };
+$("lagi").onclick = () => { resetForm(true); show("form"); };
+
+async function kirim(data){
+  const body = JSON.stringify(data);
+  try {
+    const r = await fetch(SCRIPT_URL,{method:"POST",body});
+    return (await r.text()).trim().startsWith("OK");
+  } catch(e) {          // jika browser memblokir pembacaan respons, kirim ulang tanpa konfirmasi
+    await fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",body});
+    return true;
+  }
+}
+
+$("simpan").onclick = async () => {
+  if (busy) return;
+  if (!$("tgl").value) return toast("Pilih tanggal dulu.", true);
+  if (!mesin) return toast("Pilih mesin dulu.", true);
+  const jam = rows().map(r=>r.querySelector(".cb").checked?1:0);
+  const ket = rows().map(r=>r.querySelector(".ket").value.trim());
+  const manpower = SHIFT.map(s=>$("mp"+s.n).value.trim());
+  for (let i=0;i<3;i++){
+    const ada = jam.slice(i*8,i*8+8).some(x=>x) || ket.slice(i*8,i*8+8).some(x=>x);
+    if (ada && !manpower[i]) { setTab(i); $("mp"+SHIFT[i].n).focus(); return toast("Isi nama manpower Shift "+SHIFT[i].n+".", true); }
+  }
+  const total = jam.reduce((a,b)=>a+b,0);
+  const btn = $("simpan"); busy = true; btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Menyimpan';
+  try {
+    const ok = await kirim({tanggal:$("tgl").value, mesin, manpower, jam, ket});
+    if (!ok) throw new Error("ditolak");
+    addRec({mesin, tgl:$("tgl").value, jam:total});
+    const mp = manpower.filter(Boolean).join(", ") || "-";
+    $("sum").innerHTML = `<div><span>Mesin</span><b>${mesin}</b></div><div><span>Tanggal</span><b>${fmtTgl($("tgl").value)}</b></div><div><span>Manpower</span><b>${mp}</b></div><div><span>Total jam</span><b>${total} jam</b></div>`;
+    show("done");
+  } catch(e) {
+    toast("Gagal menyimpan. Cek koneksi atau pengaturan script, lalu coba lagi.", true);
+  }
+  busy = false; btn.disabled = false; btn.textContent = "Simpan";
+};
+
+renderHome(); setTab(0); update();
+</script>
+</body>
+</html>
